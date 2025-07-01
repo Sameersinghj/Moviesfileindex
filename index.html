@@ -31,8 +31,6 @@
             overflow-x: hidden;
         }
 
-<<<<<<< HEAD
-=======
         /* Dev Tools Protection */
         body {
             -webkit-user-select: none;
@@ -41,7 +39,6 @@
             user-select: none;
         }
 
->>>>>>> f95b4cc (Fixed)
         /* Animated Background */
         .bg-animation {
             position: fixed;
@@ -135,28 +132,6 @@
             text-decoration: none;
         }
 
-<<<<<<< HEAD
-        .nav-menu {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-        }
-
-        .nav-menu a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-menu a:hover {
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-=======
->>>>>>> f95b4cc (Fixed)
         .search-wrapper {
             position: relative;
         }
@@ -260,16 +235,6 @@
             margin-bottom: 5rem;
         }
 
-<<<<<<< HEAD
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 3rem;
-        }
-
-=======
->>>>>>> f95b4cc (Fixed)
         .section-title {
             font-size: 2.5rem;
             font-weight: 800;
@@ -277,10 +242,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-<<<<<<< HEAD
-=======
             margin-bottom: 3rem;
->>>>>>> f95b4cc (Fixed)
         }
 
         /* Movies Grid */
@@ -393,80 +355,6 @@
             font-size: 0.8rem;
         }
 
-<<<<<<< HEAD
-        /* Modal */
-        .video-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 3000;
-            backdrop-filter: blur(20px);
-        }
-
-        .modal-wrapper {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 95%;
-            max-width: 1400px;
-            height: 90%;
-            background: var(--dark);
-            border-radius: 25px;
-            overflow: hidden;
-            border: 2px solid rgba(255, 45, 146, 0.3);
-            box-shadow: 0 25px 100px rgba(255, 45, 146, 0.2);
-        }
-
-        .modal-top {
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(255, 45, 146, 0.1), rgba(124, 58, 237, 0.1));
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 2rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
-            background: rgba(255, 45, 146, 0.2);
-            color: white;
-        }
-
-        .video-wrapper {
-            width: 100%;
-            height: calc(100% - 100px);
-        }
-
-        .video-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Loading States */
-=======
->>>>>>> f95b4cc (Fixed)
         .loading-state {
             display: none;
             text-align: center;
@@ -500,13 +388,7 @@
             margin-bottom: 1rem;
         }
 
-<<<<<<< HEAD
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-menu { display: none; }
-=======
-        @media (max-width: 768px) {
->>>>>>> f95b4cc (Fixed)
             .search-input { width: 200px; }
             .hero-content h1 { font-size: 3rem; }
             .movies-container { 
@@ -524,37 +406,17 @@
     <div class="orb"></div>
     <div class="orb"></div>
 
-<<<<<<< HEAD
-    <!-- Header -->
     <header class="header">
         <nav class="nav">
             <a href="#" class="logo">FlixHub</a>
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#movies">Movies</a></li>
-                <li><a href="#series">Series</a></li>
-                <li><a href="#trending">Trending</a></li>
-            </ul>
-=======
-    <header class="header">
-        <nav class="nav">
-            <a href="#" class="logo">FlixHub</a>
->>>>>>> f95b4cc (Fixed)
             <div class="search-wrapper">
                 <input type="text" class="search-input" placeholder="Search for movies..." id="searchInput">
             </div>
         </nav>
     </header>
 
-<<<<<<< HEAD
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-=======
     <div class="container">
         <section class="hero">
->>>>>>> f95b4cc (Fixed)
             <div class="hero-content">
                 <h1>Infinite Entertainment</h1>
                 <p>Dive into a world of blockbuster movies, exclusive series, and premium content. Your next favorite story is just a click away.</p>
@@ -562,16 +424,8 @@
             </div>
         </section>
 
-<<<<<<< HEAD
-        <!-- Movies Section -->
-        <section class="content-section" id="movies">
-            <div class="section-header">
-                <h2 class="section-title">Premium Collection</h2>
-            </div>
-=======
         <section class="content-section" id="movies">
             <h2 class="section-title">Premium Collection</h2>
->>>>>>> f95b4cc (Fixed)
             
             <div class="loading-state" id="loadingState">
                 <div class="loading-spinner"></div>
@@ -587,22 +441,6 @@
         </section>
     </div>
 
-<<<<<<< HEAD
-    <!-- Video Modal -->
-    <div class="video-modal" id="videoModal">
-        <div class="modal-wrapper">
-            <div class="modal-top">
-                <h3 class="modal-title" id="modalTitle">Now Playing</h3>
-                <button class="modal-close" id="modalClose">&times;</button>
-            </div>
-            <div class="video-wrapper">
-                <iframe id="videoFrame" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-
-    <script>
-=======
     <script>
         // Dev Tools Protection
         document.addEventListener('contextmenu', e => e.preventDefault());
@@ -621,16 +459,10 @@
             }
         }, 500);
 
->>>>>>> f95b4cc (Fixed)
         class FlixHub {
             constructor() {
                 this.movies = [];
                 this.filteredMovies = [];
-<<<<<<< HEAD
-                this.init();
-            }
-
-=======
                 this.secretKey = this.generateSecretKey();
                 this.init();
             }
@@ -639,7 +471,6 @@
                 return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
             }
 
->>>>>>> f95b4cc (Fixed)
             init() {
                 this.setupElements();
                 this.setupEventListeners();
@@ -651,46 +482,21 @@
                 this.loadingState = document.getElementById('loadingState');
                 this.errorMessage = document.getElementById('errorMessage');
                 this.searchInput = document.getElementById('searchInput');
-<<<<<<< HEAD
-                this.videoModal = document.getElementById('videoModal');
-                this.videoFrame = document.getElementById('videoFrame');
-                this.modalTitle = document.getElementById('modalTitle');
-                this.modalClose = document.getElementById('modalClose');
-=======
->>>>>>> f95b4cc (Fixed)
             }
 
             setupEventListeners() {
                 this.searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
-<<<<<<< HEAD
-                this.modalClose.addEventListener('click', () => this.closeModal());
-                this.videoModal.addEventListener('click', (e) => {
-                    if (e.target === this.videoModal) this.closeModal();
-                });
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') this.closeModal();
-                });
-=======
->>>>>>> f95b4cc (Fixed)
             }
 
             async loadMoviesData() {
                 try {
                     this.showLoading();
                     
-<<<<<<< HEAD
-                    // Try to load from movies.json first
-=======
->>>>>>> f95b4cc (Fixed)
-let response;
+                    let response;
                     try {
                         response = await fetch('./movies.json');
                         if (!response.ok) throw new Error('Failed to fetch movies.json');
                     } catch (error) {
-<<<<<<< HEAD
-                        // Fallback to sample data if movies.json is not found
-=======
->>>>>>> f95b4cc (Fixed)
                         console.warn('movies.json not found, using sample data');
                         this.movies = this.getSampleData();
                         this.filteredMovies = [...this.movies];
@@ -758,11 +564,7 @@ let response;
                         <img src="${movie.poster_url}" alt="${movie.title}" loading="lazy" 
                              onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgdmlld0JveD0iMCAwIDMwMCA0NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjMWExYTFhIi8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjIwMCIgcj0iNDAiIGZpbGw9IiM0NDQ0NDQiLz4KPHJlY3QgeD0iMTMwIiB5PSIyNjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI2MCIgZmlsbD0iIzQ0NDQ0NCIvPgo8dGV4dCB4PSIxNTAiIHk9IjM1MCIgZmlsbD0iIzY2NjY2NiIgZm9udC1zaXplPSIxNiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Tm8gSW1hZ2U8L3RleHQ+Cjwvc3ZnPg=='">
                         <div class="poster-overlay">
-<<<<<<< HEAD
-                            <button class="play-btn" onclick="flixHub.playMovie('${movie.embed_url}', '${movie.title.replace(/'/g, "\\'")}')">▶</button>
-=======
                             <button class="play-btn" onclick="flixHub.playMovie('${movie.id}', '${movie.title.replace(/'/g, "\\'")}', '${movie.embed_url}')">▶</button>
->>>>>>> f95b4cc (Fixed)
                         </div>
                     </div>
                     <div class="movie-details">
@@ -777,18 +579,6 @@ let response;
                 return movieDiv;
             }
 
-<<<<<<< HEAD
-            playMovie(embedUrl, title) {
-    // Get movie ID from embed URL
-    const movieId = embedUrl.split('/').pop();
-    window.open(`player.html?id=${movieId}`, '_blank');
-}
-
-            closeModal() {
-                this.videoModal.style.display = 'none';
-                this.videoFrame.src = '';
-                document.body.style.overflow = 'auto';
-=======
             playMovie(movieId, title, embedUrl) {
                 // Create URL parameters for the player page
                 const movieData = {
@@ -803,7 +593,6 @@ let response;
                 
                 // Open player page in new tab
                 window.open(`player.html?data=${encodeURIComponent(encodedData)}`, '_blank');
->>>>>>> f95b4cc (Fixed)
             }
 
             handleSearch(searchTerm) {
@@ -831,15 +620,8 @@ let response;
             }
         }
 
-<<<<<<< HEAD
-        // Initialize the app
         const flixHub = new FlixHub();
         
-        // Smooth scrolling for navigation
-=======
-        const flixHub = new FlixHub();
-        
->>>>>>> f95b4cc (Fixed)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -850,33 +632,5 @@ let response;
             });
         });
     </script>
-<<<<<<< HEAD
-    
-    <script>
-// Disable dev tools
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-        (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-        (e.ctrlKey && e.key === 'U')) {
-        e.preventDefault();
-        return false;
-    }
-});
-
-// Disable right click
-document.addEventListener('contextmenu', e => e.preventDefault());
-
-// Additional protection
-setInterval(() => {
-    if (window.outerHeight - window.innerHeight > 100) {
-        document.body.innerHTML = '';
-    }
-}, 500);
-</script>
-    
-=======
->>>>>>> f95b4cc (Fixed)
 </body>
-</html>                        
+</html>
