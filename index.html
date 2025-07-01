@@ -686,11 +686,10 @@
             }
 
             playMovie(embedUrl, title) {
-                this.modalTitle.textContent = title;
-                this.videoFrame.src = embedUrl;
-                this.videoModal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            }
+    // Get movie ID from embed URL
+    const movieId = embedUrl.split('/').pop();
+    window.open(`player.html?id=${movieId}`, '_blank');
+}
 
             closeModal() {
                 this.videoModal.style.display = 'none';
@@ -737,5 +736,30 @@
             });
         });
     </script>
+    
+    <script>
+// Disable dev tools
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+        (e.ctrlKey && e.key === 'U')) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// Disable right click
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// Additional protection
+setInterval(() => {
+    if (window.outerHeight - window.innerHeight > 100) {
+        document.body.innerHTML = '';
+    }
+}, 500);
+</script>
+    
 </body>
 </html>
