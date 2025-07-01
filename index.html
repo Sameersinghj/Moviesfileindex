@@ -255,6 +255,37 @@
             overflow: hidden;
         }
 
+        /* Load More Button */
+        .load-more-container {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .load-more-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #8a2be2, #4b0082);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.3);
+        }
+
+        .load-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(138, 43, 226, 0.5);
+            background: linear-gradient(45deg, #9932cc, #5d1a8b);
+        }
+
+        .load-more-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -401,6 +432,10 @@
         </div>
 
         <div class="movies-grid" id="moviesGrid"></div>
+        
+        <div class="load-more-container" id="loadMoreContainer" style="display: none;">
+            <button class="load-more-btn" id="loadMoreBtn">Load More Movies</button>
+        </div>
     </main>
 
     <!-- Modal -->
@@ -461,6 +496,9 @@
         // Application logic
         let moviesData = [];
         let filteredMovies = [];
+        let displayedMovies = [];
+        let currentDisplayCount = 0;
+        const MOVIES_PER_LOAD = 12; // Number of movies to load at once
 
         // Load movies data
         async function loadMovies() {
@@ -473,7 +511,7 @@
                 }
                 moviesData = await response.json();
                 filteredMovies = [...moviesData];
-                renderMovies();
+                initializeDisplay();
             } catch (error) {
                 console.error('Error loading movies:', error);
                 // Fallback data for demo
@@ -531,11 +569,59 @@
                         "runtime": 95
                     }
                 ];
+                
+                // Create more demo data to test load more functionality
+                for (let i = 0; i < 50; i++) {
+                    moviesData.push({
+                        "id": `demo_${i}`,
+                        "title": `Demo Movie ${i + 1}`,
+                        "embed_url": `https://vidsrc.cc/v2/embed/movie/demo_${i}`,
+                        "poster_url": "https://image.tmdb.org/t/p/w500/demo.jpg",
+                        "rating": Math.floor(Math.random() * 5) + 5,
+                        "vote_count": Math.floor(Math.random() * 1000) + 100,
+                        "release_date": "2024-01-01",
+                        "overview": `This is a demo movie ${i + 1} with an exciting storyline that will keep you entertained.`,
+                        "genres": ["Action", "Drama", "Comedy", "Thriller"][Math.floor(Math.random() * 4)].split(),
+                        "audio_languages": ["en"],
+                        "runtime": 120
+                    });
+                }
+                
                 filteredMovies = [...moviesData];
-                renderMovies();
+                initializeDisplay();
             }
             
             document.getElementById('loading').style.display = 'none';
+        }
+
+        // Initialize display with first batch of movies
+        function initializeDisplay() {
+            currentDisplayCount = 0;
+            displayedMovies = [];
+            loadMoreMovies();
+        }
+
+        // Load more movies
+        function loadMoreMovies() {
+            const nextBatch = filteredMovies.slice(currentDisplayCount, currentDisplayCount + MOVIES_PER_LOAD);
+            displayedMovies = [...displayedMovies, ...nextBatch];
+            currentDisplayCount += nextBatch.length;
+            
+            renderMovies();
+            updateLoadMoreButton();
+        }
+
+        // Update load more button visibility
+        function updateLoadMoreButton() {
+            const loadMoreContainer = document.getElementById('loadMoreContainer');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            
+            if (currentDisplayCount >= filteredMovies.length) {
+                loadMoreContainer.style.display = 'none';
+            } else {
+                loadMoreContainer.style.display = 'block';
+                loadMoreBtn.textContent = `Load More Movies (${filteredMovies.length - currentDisplayCount} remaining)`;
+            }
         }
 
         // Render movies
@@ -543,7 +629,7 @@
             const grid = document.getElementById('moviesGrid');
             grid.innerHTML = '';
 
-            filteredMovies.forEach(movie => {
+            displayedMovies.forEach(movie => {
                 const movieCard = document.createElement('div');
                 movieCard.className = 'movie-card';
                 
@@ -626,7 +712,9 @@
                     filteredMovies = genreFilteredMovies;
                 }
             }
-            renderMovies();
+            
+            // Reset display after filtering
+            initializeDisplay();
         }
 
         // Search functionality  
@@ -653,9 +741,26 @@
                     movie.overview.toLowerCase().includes(query.toLowerCase()) ||
                     movie.genres.some(genre => genre.toLowerCase().includes(query.toLowerCase()))
                 );
-                renderMovies();
+                
+                // Reset display after search
+                initializeDisplay();
             }
         }
+
+        // Apply debouncing to search
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        const debouncedSearch = debounce(searchMovies, 300);
 
         // Event listeners
         document.addEventListener('DOMContentLoaded', () => {
@@ -670,10 +775,15 @@
                 });
             });
 
-            // Search input - remove the old event listener and use only the debounced version
+            // Search input
             const searchInput = document.getElementById('searchInput');
             searchInput.addEventListener('input', (e) => {
                 debouncedSearch(e.target.value);
+            });
+
+            // Load more button
+            document.getElementById('loadMoreBtn').addEventListener('click', () => {
+                loadMoreMovies();
             });
 
             // Modal close
@@ -693,23 +803,6 @@
                 }
             });
         });
-
-        // Apply debouncing to search - move this before the event listeners
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        const debouncedSearch = debounce(searchMovies, 300);
-
-
     </script>
 </body>
 </html>
