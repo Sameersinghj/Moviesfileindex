@@ -389,6 +389,7 @@
             <button class="filter-btn active" data-filter="all">All</button>
             <button class="filter-btn" data-filter="Action">Action</button>
             <button class="filter-btn" data-filter="Drama">Drama</button>
+            <button class="filter-btn" data-filter="Thriller">Thriller</button>
             <button class="filter-btn" data-filter="Comedy">Comedy</button>
             <button class="filter-btn" data-filter="Adventure">Adventure</button>
             <button class="filter-btn" data-filter="Mystery">Mystery</button>
@@ -492,7 +493,7 @@
                     },
                     {
                         "id": "12345",
-                        "title": "Mystery Series",
+                        "title": "Mystery Chronicles",
                         "embed_url": "https://vidsrc.cc/v2/embed/tv/12345/1",
                         "poster_url": "https://image.tmdb.org/t/p/w500/xyz789.jpg",
                         "rating": 8.2,
@@ -511,23 +512,23 @@
                         "rating": 7.5,
                         "vote_count": 800,
                         "release_date": "2024-03-15",
-                        "overview": "An explosive action thriller with non-stop entertainment and spectacular stunts.",
-                        "genres": ["Action", "Comedy"],
+                        "overview": "An explosive action thriller with non-stop excitement and incredible stunts.",
+                        "genres": ["Action", "Thriller"],
                         "audio_languages": ["en"],
                         "runtime": 110
                     },
                     {
                         "id": "54321",
-                        "title": "Drama Queens",
-                        "embed_url": "https://vidsrc.cc/v2/embed/tv/54321/1",
-                        "poster_url": "https://image.tmdb.org/t/p/w500/drama456.jpg",
-                        "rating": 8.7,
-                        "vote_count": 650,
-                        "release_date": "2024-01-10",
-                        "overview": "A compelling drama about family, love, and sacrifice that will touch your heart.",
-                        "genres": ["Drama"],
-                        "audio_languages": ["en", "es"],
-                        "runtime": 55
+                        "title": "Comedy Central",
+                        "embed_url": "https://vidsrc.cc/v2/embed/movie/54321",
+                        "poster_url": "https://image.tmdb.org/t/p/w500/comedy456.jpg",
+                        "rating": 6.8,
+                        "vote_count": 600,
+                        "release_date": "2024-01-20",
+                        "overview": "A hilarious comedy that will make you laugh until your sides hurt.",
+                        "genres": ["Comedy"],
+                        "audio_languages": ["en"],
+                        "runtime": 95
                     }
                 ];
                 filteredMovies = [...moviesData];
@@ -595,28 +596,36 @@
 
         // Filter functionality
         function filterMovies(genre) {
-            const searchQuery = document.getElementById('searchInput').value;
+            const searchQuery = document.getElementById('searchInput').value.trim();
             
-            let baseMovies = moviesData;
-            
-            // Apply genre filter
-            if (genre !== 'all') {
-                baseMovies = moviesData.filter(movie => 
+            if (genre === 'all') {
+                if (searchQuery) {
+                    // Apply search to all movies
+                    filteredMovies = moviesData.filter(movie =>
+                        movie.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        movie.overview.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        movie.genres.some(g => g.toLowerCase().includes(searchQuery.toLowerCase()))
+                    );
+                } else {
+                    filteredMovies = [...moviesData];
+                }
+            } else {
+                // Filter by genre first
+                let genreFilteredMovies = moviesData.filter(movie => 
                     movie.genres.includes(genre)
                 );
+                
+                if (searchQuery) {
+                    // Apply search to genre-filtered movies
+                    filteredMovies = genreFilteredMovies.filter(movie =>
+                        movie.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        movie.overview.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        movie.genres.some(g => g.toLowerCase().includes(searchQuery.toLowerCase()))
+                    );
+                } else {
+                    filteredMovies = genreFilteredMovies;
+                }
             }
-            
-            // Then apply search filter if there's a search query
-            if (searchQuery.trim()) {
-                filteredMovies = baseMovies.filter(movie =>
-                    movie.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    movie.overview.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    movie.genres.some(g => g.toLowerCase().includes(searchQuery.toLowerCase()))
-                );
-            } else {
-                filteredMovies = [...baseMovies];
-            }
-            
             renderMovies();
         }
 
@@ -624,26 +633,28 @@
         function searchMovies(query) {
             const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
             
-            let baseMovies = moviesData;
-            
-            // Apply genre filter first
-            if (activeFilter !== 'all') {
-                baseMovies = moviesData.filter(movie => 
-                    movie.genres.includes(activeFilter)
-                );
-            }
-            
-            // Then apply search filter
             if (!query.trim()) {
-                filteredMovies = [...baseMovies];
+                // If no search query, apply only genre filter
+                filterMovies(activeFilter);
             } else {
+                // Apply both search and genre filter
+                let baseMovies = moviesData;
+                
+                // First apply genre filter if not 'all'
+                if (activeFilter !== 'all') {
+                    baseMovies = moviesData.filter(movie => 
+                        movie.genres.includes(activeFilter)
+                    );
+                }
+                
+                // Then apply search filter
                 filteredMovies = baseMovies.filter(movie =>
                     movie.title.toLowerCase().includes(query.toLowerCase()) ||
                     movie.overview.toLowerCase().includes(query.toLowerCase()) ||
                     movie.genres.some(genre => genre.toLowerCase().includes(query.toLowerCase()))
                 );
+                renderMovies();
             }
-            renderMovies();
         }
 
         // Event listeners
@@ -659,23 +670,10 @@
                 });
             });
 
-            // Search input
+            // Search input - remove the old event listener and use only the debounced version
             const searchInput = document.getElementById('searchInput');
-            let searchTimeout;
-            
             searchInput.addEventListener('input', (e) => {
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(() => {
-                    searchMovies(e.target.value);
-                }, 300);
-            });
-
-            // Also trigger search on Enter key
-            searchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    clearTimeout(searchTimeout);
-                    searchMovies(e.target.value);
-                }
+                debouncedSearch(e.target.value);
             });
 
             // Modal close
@@ -696,7 +694,7 @@
             });
         });
 
-        // Performance optimization
+        // Apply debouncing to search - move this before the event listeners
         function debounce(func, wait) {
             let timeout;
             return function executedFunction(...args) {
@@ -709,8 +707,9 @@
             };
         }
 
-        // Remove the duplicate debounced search at the bottom
-        // The search functionality is now properly handled above
+        const debouncedSearch = debounce(searchMovies, 300);
+
+
     </script>
 </body>
 </html>
