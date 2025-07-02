@@ -1366,7 +1366,1383 @@
                 'https://vidsrc.to',
                 'https://api.telegram.org'
             ];
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VStream - Premium Entertainment Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #141414;
+            color: #ffffff;
+            overflow-x: hidden;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, rgba(20, 20, 20, 0.95) 0%, rgba(20, 20, 20, 0.7) 100%);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #e50914;
+            text-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 30px rgba(229, 9, 20, 0.8);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            color: #e50914;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #e50914;
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 0 15px rgba(229, 9, 20, 0.3);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            height: 70vh;
+            background: linear-gradient(45deg, 
+                rgba(229, 9, 20, 0.8) 0%, 
+                rgba(139, 0, 139, 0.6) 50%, 
+                rgba(20, 20, 20, 0.9) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23141414" width="1920" height="1080"/><circle fill="rgba(229,9,20,0.1)" cx="200" cy="200" r="150"/><circle fill="rgba(139,0,139,0.1)" cx="1500" cy="300" r="200"/><circle fill="rgba(229,9,20,0.05)" cx="800" cy="700" r="300"/></svg>');
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #e50914, #8b008b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(229, 9, 20, 0.5)); }
+            to { filter: drop-shadow(0 0 40px rgba(229, 9, 20, 0.8)); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .join-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #e50914, #b8070f);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+        }
+
+        .join-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(229, 9, 20, 0.6);
+            background: linear-gradient(45deg, #f40612, #e50914);
+        }
+
+        /* Section Headers */
+        .section {
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            border-color: #e50914;
+            color: #e50914;
+            background: rgba(229, 9, 20, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #e50914;
+            border-color: #e50914;
+            color: white;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+        }
+
+        /* Movies Grid */
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem 0;
+        }
+
+        .movie-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            group: hover;
+        }
+
+        .movie-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(229, 9, 20, 0.1) 0%, 
+                rgba(139, 0, 139, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .movie-card:hover::before {
+            opacity: 1;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(229, 9, 20, 0.5);
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .movie-card:hover .movie-poster {
+            transform: scale(1.05);
+        }
+
+        .movie-info {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .movie-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        .year {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        .genres {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .genre-tag {
+            background: rgba(229, 9, 20, 0.2);
+            border: 1px solid rgba(229, 9, 20, 0.4);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .movie-overview {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.8);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Load More Button */
+        .load-more-container {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .load-more-btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #e50914, #b8070f);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+        }
+
+        .load-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(229, 9, 20, 0.6);
+            background: linear-gradient(45deg, #f40612, #e50914);
+        }
+
+        .load-more-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, 
+                rgba(229, 9, 20, 0.1) 0%, 
+                rgba(139, 0, 139, 0.1) 50%, 
+                rgba(20, 20, 20, 0.9) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #e50914, #8b008b, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e50914;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .social-link:hover {
+            background: rgba(229, 9, 20, 0.2);
+            border-color: #e50914;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: #181818;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            background: rgba(229, 9, 20, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .close {
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+            border: none;
+            background: none;
+            padding: 5px;
+        }
+
+        .close:hover {
+            color: #e50914;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            background: #000;
+        }
+
+        .video-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .report-btn {
+            padding: 8px 16px;
+            background: rgba(229, 9, 20, 0.9);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .report-btn:hover {
+            background: #e50914;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+        }
+
+        .report-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(229, 9, 20, 0.3);
+            border-top: 3px solid #e50914;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success/Error Messages */
+        .message {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 3000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .message.show {
+            transform: translateX(0);
+        }
+
+        .message.success {
+            background: linear-gradient(45deg, #28a745, #20c997);
+        }
+
+        .message.error {
+            background: linear-gradient(45deg, #dc3545, #e74c3c);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
             
+            .movies-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .filter-bar {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .filter-btn {
+                text-align: center;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Security Styles */
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #141414;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e50914;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f40612;
+        }
+    </style>
+</head>
+<body class="no-select">
+    <header class="header">
+        <nav class="nav">
+            <div class="logo" onclick="scrollToTop()">VStream</div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-item">Home</a>
+                <a href="#movies" class="nav-item">Movies</a>
+                <a href="#about" class="nav-item">About</a>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search movies & series..." id="searchInput">
+                <span class="search-icon">🔍</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="hero-section" id="home">
+            <div class="hero-content">
+                <h1 class="hero-title">Premium Entertainment Hub</h1>
+                <p class="hero-subtitle">Discover unlimited movies and series with crystal clear quality. Join thousands of movie enthusiasts on our exclusive Telegram channel.</p>
+                <a href="https://t.me/vengeanceseekers" class="join-button" target="_blank">
+                    📺 Join Channel
+                </a>
+            </div>
+        </section>
+
+        <section class="section" id="movies">
+            <h2 class="section-title">🎬 Featured Content</h2>
+            
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="Action">Action</button>
+                <button class="filter-btn" data-filter="Drama">Drama</button>
+                <button class="filter-btn" data-filter="Thriller">Thriller</button>
+                <button class="filter-btn" data-filter="Comedy">Comedy</button>
+                <button class="filter-btn" data-filter="Adventure">Adventure</button>
+                <button class="filter-btn" data-filter="Horror">Horror</button>
+                <button class="filter-btn" data-filter="Mystery">Mystery</button>
+                <button class="filter-btn" data-filter="Family">Family</button>
+                <button class="filter-btn" data-filter="Science Fiction">Sci-Fi</button>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading premium content...</p>
+            </div>
+
+            <div class="movies-grid" id="moviesGrid"></div>
+            
+            <div class="load-more-container" id="loadMoreContainer" style="display: none;">
+                <button class="load-more-btn" id="loadMoreBtn">Load More Movies</button>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="about-content">
+                <h2 class="about-title">About VStream</h2>
+                <p class="about-description">
+                    Welcome to VStream, your ultimate destination for premium entertainment. Created and maintained by a passionate developer who believes in bringing the best streaming experience to movie enthusiasts worldwide.
+                </p>
+                
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-title">Owner</div>
+                        <div class="stat-value">@hellfirez3643</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-title">Skills</div>
+                        <div class="stat-value">Full Stack Development, UI/UX Design, Bot Development</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-title">Channel</div>
+                        <div class="stat-value">@VengeanceSeekers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-title">Content Quality</div>
+                        <div class="stat-value">HD & 4K Streaming</div>
+                    </div>
+                </div>
+
+                <p class="about-description">
+                    Our platform is designed with modern web technologies to provide seamless streaming experience. We continuously update our content library and improve user experience based on community feedback.
+                </p>
+
+                <div class="social-links">
+                    <a href="https://t.me/hellfirez3643" class="social-link" target="_blank">
+                        👤 Contact Owner
+                    </a>
+                    <a href="https://t.me/vengeanceseekers" class="social-link" target="_blank">
+                        📺 Join Channel
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle" class="modal-title">Movie Title</h2>
+                <button class="close" id="closeModal">&times;</button>
+            </div>
+            <div class="video-container">
+                <iframe id="videoFrame" class="video-frame" allowfullscreen></iframe>
+                <div class="video-controls">
+                    <button class="report-btn" id="reportBtn">Report Issue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Container -->
+    <div id="messageContainer"></div>
+
+    <script>
+        // Security measures
+        (function() {
+            // Disable right-click
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            
+            // Disable F12, Ctrl+Shift+I, Ctrl+U, etc.
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) ||
+                    (e.ctrlKey && e.key === 'U') ||
+                    (e.ctrlKey && e.key === 'S')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Detect devtools
+            let devtools = {open: false, orientation: null};
+            const threshold = 160;
+            
+            setInterval(() => {
+                if (window.outerHeight - window.innerHeight > threshold || 
+                    window.outerWidth - window.innerWidth > threshold) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        document.body.style.display = 'none';
+                        alert('Developer tools detected. Please close them to continue.');
+                    }
+                } else {
+                    if (devtools.open) {
+                        devtools.open = false;
+                        document.body.style.display = 'block';
+                    }
+                }
+            }, 500);
+
+            // Disable text selection
+            document.onselectstart = () => false;
+            document.ondragstart = () => false;
+        })();
+
+        // Telegram Bot Configuration
+        const TELEGRAM_BOT_TOKEN = '8146831250:AAFtvJKJLetdlnG-rp-qefoN-39jdoEvmBE';
+        const TELEGRAM_CHAT_ID = '5879313182';
+
+        // Application logic
+        let moviesData = [];
+        let filteredMovies = [];
+        let displayedMovies = [];
+        let currentDisplayCount = 0;
+        let currentMovie = null;
+        const MOVIES_PER_LOAD = 12;
+
+        // Utility functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showMessage(text, type = 'success') {
+            const messageContainer = document.getElementById('messageContainer');
+            const message = document.createElement('div');
+            message.className = `message ${type}`;
+            message.textContent = text;
+            
+            messageContainer.appendChild(message);
+            
+            setTimeout(() => message.classList.add('show'), 100);
+            
+            setTimeout(() => {
+                message.classList.remove('show');
+                setTimeout(() => messageContainer.removeChild(message), 300);
+            }, 3000);
+        }
+
+        // Telegram Bot Function
+        async function reportMovieIssue(movie) {
+            const reportBtn = document.getElementById('reportBtn');
+            reportBtn.disabled = true;
+            reportBtn.textContent = 'Reporting...';
+            
+            try {
+                const message = `🚨 MOVIE ISSUE REPORT\n\n` +
+                              `📽️ Movie: ${movie.title}\n` +
+                              `📅 Year: ${movie.release_date ? new Date(movie.release_date).getFullYear() : 'N/A'}\n` +
+                              `⭐ Rating: ${movie.vote_average}/10\n` +
+                              `🎭 Genres: ${movie.genres ? movie.genres.join(', ') : 'N/A'}\n` +
+                              `🆔 Movie ID: ${movie.id}\n\n` +
+                              `❗ Issue reported by user at: ${new Date().toLocaleString()}\n` +
+                              `🌐 Platform: VStream Entertainment Hub`;
+
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                if (response.ok) {
+                    showMessage('Issue reported successfully! We\'ll fix it soon.', 'success');
+                } else {
+                    throw new Error('Failed to send report');
+                }
+            } catch (error) {
+                console.error('Error reporting issue:', error);
+                showMessage('Failed to report issue. Please try again later.', 'error');
+            } finally {
+                reportBtn.disabled = false;
+                reportBtn.textContent = 'Report Issue';
+            }
+        }
+
+        // Movie Data Loading
+        // Replace the entire loadMoviesData function with this:
+async function loadMoviesData() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'block';
+    
+    try {
+        // Load movies from movie.json file
+        const response = await fetch('./movie.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Handle different JSON structures
+        moviesData = Array.isArray(data) ? data : (data.results || data.movies || []);
+        
+        if (moviesData.length === 0) {
+            throw new Error('No movies found in the JSON file');
+        }
+        
+        // Process each movie to ensure proper structure
+        moviesData = moviesData.map(movie => ({
+            id: movie.id || Math.random().toString(36).substr(2, 9),
+            title: movie.title || movie.name || 'Unknown Title',
+            overview: movie.overview || movie.description || 'No description available',
+            poster_path: movie.poster_path || movie.poster || movie.image || 'https://via.placeholder.com/500x750?text=No+Image',
+            release_date: movie.release_date || movie.year || '',
+            vote_average: movie.vote_average || movie.rating || 0,
+            genres: movie.genres || movie.genre || [],
+            video_url: movie.video_url || movie.url || movie.stream_url || `https://vidsrc.to/embed/movie/${movie.id}`
+        }));
+        
+        filteredMovies = [...moviesData];
+        displayedMovies = [];
+        currentDisplayCount = 0;
+        
+        loadMoreMovies();
+        
+        console.log(`Successfully loaded ${moviesData.length} movies from movie.json`);
+        
+    } catch (error) {
+        console.error('Error loading movies:', error);
+        showMessage(`Failed to load movies: ${error.message}`, 'error');
+        
+        // Fallback: Show error message in the movies grid
+        const moviesGrid = document.getElementById('moviesGrid');
+        moviesGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: rgba(255,255,255,0.7);">
+                <h3 style="color: #e50914; margin-bottom: 1rem;">⚠️ Unable to Load Movies</h3>
+                <p>Could not load movies from movie.json file.</p>
+                <p>Please check if the file exists and is formatted correctly.</p>
+                <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.8;">Error: ${error.message}</p>
+            </div>
+        `;
+    } finally {
+        loading.style.display = 'none';
+    }
+}
+
+// Add this new function to handle different poster path formats:
+function getFullPosterPath(posterPath) {
+    if (!posterPath) return 'https://via.placeholder.com/500x750?text=No+Image';
+    
+    // If it's already a full URL, return as is
+    if (posterPath.startsWith('http')) return posterPath;
+    
+    // If it's a TMDB path, add the base URL
+    if (posterPath.startsWith('/')) {
+        return `https://image.tmdb.org/t/p/w500${posterPath}`;
+    }
+    
+    // Otherwise, assume it's a filename and try to construct the path
+    return posterPath;
+}
+
+// Replace the displayMovies function with this improved version:
+function displayMovies(movies) {
+    const moviesGrid = document.getElementById('moviesGrid');
+    
+    movies.forEach(movie => {
+        const movieCard = document.createElement('div');
+        movieCard.className = 'movie-card';
+        
+        const releaseYear = movie.release_date ? 
+            (new Date(movie.release_date).getFullYear() || movie.release_date) : 'N/A';
+        const rating = movie.vote_average ? Number(movie.vote_average).toFixed(1) : 'N/A';
+        const genres = Array.isArray(movie.genres) ? movie.genres.slice(0, 3) : [];
+        const posterUrl = getFullPosterPath(movie.poster_path);
+        
+        movieCard.innerHTML = `
+            <img src="${posterUrl}" alt="${movie.title}" class="movie-poster" loading="lazy" 
+                 onerror="this.src='https://via.placeholder.com/500x750?text=No+Image'">
+            <div class="movie-info">
+                <h3 class="movie-title">${movie.title}</h3>
+                <div class="movie-meta">
+                    <div class="rating">⭐ ${rating}</div>
+                    <div class="year">${releaseYear}</div>
+                </div>
+                <div class="genres">
+                    ${genres.map(genre => `<span class="genre-tag">${genre}</span>`).join('')}
+                </div>
+                <p class="movie-overview">${movie.overview}</p>
+            </div>
+        `;
+        
+        movieCard.addEventListener('click', () => openMovieModal(movie));
+        moviesGrid.appendChild(movieCard);
+    });
+}
+
+// Add error handling to the filter function:
+function filterMovies(genre) {
+    const moviesGrid = document.getElementById('moviesGrid');
+    moviesGrid.innerHTML = '';
+    
+    if (!moviesData || moviesData.length === 0) {
+        moviesGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: rgba(255,255,255,0.7);">
+                <p>No movies available to filter</p>
+            </div>
+        `;
+        return;
+    }
+    
+    if (genre === 'all') {
+        filteredMovies = [...moviesData];
+    } else {
+        filteredMovies = moviesData.filter(movie => {
+            if (!movie.genres) return false;
+            if (Array.isArray(movie.genres)) {
+                return movie.genres.includes(genre);
+            }
+            if (typeof movie.genres === 'string') {
+                return movie.genres.toLowerCase().includes(genre.toLowerCase());
+            }
+            return false;
+        });
+    }
+    
+    displayedMovies = [];
+    currentDisplayCount = 0;
+    loadMoreMovies();
+    
+    // Show message if no movies found for the filter
+    if (filteredMovies.length === 0) {
+        moviesGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: rgba(255,255,255,0.7);">
+                <p>No movies found for "${genre}" genre</p>
+            </div>
+        `;
+    }
+}
+
+// Improve the search function:
+function searchMovies(query) {
+    const moviesGrid = document.getElementById('moviesGrid');
+    moviesGrid.innerHTML = '';
+    
+    if (!moviesData || moviesData.length === 0) {
+        moviesGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: rgba(255,255,255,0.7);">
+                <p>No movies available to search</p>
+            </div>
+        `;
+        return;
+    }
+    
+    if (!query.trim()) {
+        filteredMovies = [...moviesData];
+    } else {
+        const searchTerm = query.toLowerCase();
+        filteredMovies = moviesData.filter(movie =>
+            (movie.title && movie.title.toLowerCase().includes(searchTerm)) ||
+            (movie.overview && movie.overview.toLowerCase().includes(searchTerm)) ||
+            (movie.genres && (
+                (Array.isArray(movie.genres) && movie.genres.some(genre => 
+                    genre.toLowerCase().includes(searchTerm)
+                )) ||
+                (typeof movie.genres === 'string' && movie.genres.toLowerCase().includes(searchTerm))
+            ))
+        );
+    }
+    
+    displayedMovies = [];
+    currentDisplayCount = 0;
+    loadMoreMovies();
+    
+    // Show message if no search results
+    if (query.trim() && filteredMovies.length === 0) {
+        moviesGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: rgba(255,255,255,0.7);">
+                <p>No movies found for "${query}"</p>
+            </div>
+        `;
+    }
+}
+
+        // Display movies
+        function displayMovies(movies) {
+            const moviesGrid = document.getElementById('moviesGrid');
+            
+            movies.forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.className = 'movie-card';
+                
+                const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'N/A';
+                const rating = movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A';
+                const genres = movie.genres ? movie.genres.slice(0, 3) : [];
+                
+                movieCard.innerHTML = `
+                    <img src="${movie.poster_path}" alt="${movie.title}" class="movie-poster" loading="lazy">
+                    <div class="movie-info">
+                        <h3 class="movie-title">${movie.title}</h3>
+                        <div class="movie-meta">
+                            <div class="rating">⭐ ${rating}</div>
+                            <div class="year">${releaseYear}</div>
+                        </div>
+                        <div class="genres">
+                            ${genres.map(genre => `<span class="genre-tag">${genre}</span>`).join('')}
+                        </div>
+                        <p class="movie-overview">${movie.overview}</p>
+                    </div>
+                `;
+                
+                movieCard.addEventListener('click', () => openMovieModal(movie));
+                moviesGrid.appendChild(movieCard);
+            });
+        }
+
+        // Load more movies
+        function loadMoreMovies() {
+            const startIndex = currentDisplayCount;
+            const endIndex = Math.min(startIndex + MOVIES_PER_LOAD, filteredMovies.length);
+            const moviesToShow = filteredMovies.slice(startIndex, endIndex);
+            
+            displayMovies(moviesToShow);
+            displayedMovies.push(...moviesToShow);
+            currentDisplayCount = endIndex;
+            
+            const loadMoreContainer = document.getElementById('loadMoreContainer');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            
+            if (currentDisplayCount >= filteredMovies.length) {
+                loadMoreContainer.style.display = 'none';
+            } else {
+                loadMoreContainer.style.display = 'block';
+            }
+        }
+
+        // Filter movies
+        function filterMovies(genre) {
+            const moviesGrid = document.getElementById('moviesGrid');
+            moviesGrid.innerHTML = '';
+            
+            if (genre === 'all') {
+                filteredMovies = [...moviesData];
+            } else {
+                filteredMovies = moviesData.filter(movie => 
+                    movie.genres && movie.genres.includes(genre)
+                );
+            }
+            
+            displayedMovies = [];
+            currentDisplayCount = 0;
+            loadMoreMovies();
+        }
+
+        // Search movies
+        function searchMovies(query) {
+            const moviesGrid = document.getElementById('moviesGrid');
+            moviesGrid.innerHTML = '';
+            
+            if (!query.trim()) {
+                filteredMovies = [...moviesData];
+            } else {
+                filteredMovies = moviesData.filter(movie =>
+                    movie.title.toLowerCase().includes(query.toLowerCase()) ||
+                    movie.overview.toLowerCase().includes(query.toLowerCase()) ||
+                    (movie.genres && movie.genres.some(genre => 
+                        genre.toLowerCase().includes(query.toLowerCase())
+                    ))
+                );
+            }
+            
+            displayedMovies = [];
+            currentDisplayCount = 0;
+            loadMoreMovies();
+        }
+
+        // Modal functions
+        function openMovieModal(movie) {
+            currentMovie = movie;
+            const modal = document.getElementById('movieModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const videoFrame = document.getElementById('videoFrame');
+            
+            modalTitle.textContent = movie.title;
+            videoFrame.src = movie.video_url;
+            modal.style.display = 'block';
+            
+            // Disable body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMovieModal() {
+            const modal = document.getElementById('movieModal');
+            const videoFrame = document.getElementById('videoFrame');
+            
+            modal.style.display = 'none';
+            videoFrame.src = '';
+            currentMovie = null;
+            
+            // Enable body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load movies data
+            loadMoviesData();
+            
+            // Filter buttons
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterMovies(this.dataset.filter);
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    searchMovies(this.value);
+                }, 300);
+            });
+            
+            // Load more button
+            document.getElementById('loadMoreBtn').addEventListener('click', loadMoreMovies);
+            
+            // Modal events
+            document.getElementById('closeModal').addEventListener('click', closeMovieModal);
+            document.getElementById('movieModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeMovieModal();
+                }
+            });
+            
+            // Report button
+            document.getElementById('reportBtn').addEventListener('click', function() {
+                if (currentMovie) {
+                    reportMovieIssue(currentMovie);
+                }
+            });
+            
+            // Navigation smooth scroll
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+            
+            // Escape key to close modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && document.getElementById('movieModal').style.display === 'block') {
+                    closeMovieModal();
+                }
+            });
+            
+            // Social links tracking
+            document.querySelectorAll('.social-link, .join-button').forEach(link => {
+                link.addEventListener('click', function() {
+                    // Optional: Add analytics tracking here
+                    console.log('Social link clicked:', this.href);
+                });
+            });
+        });
+
+        // Additional security measures
+        (function() {
+            // Disable print
+            window.addEventListener('beforeprint', function(e) {
+                e.preventDefault();
+                showMessage('Printing is disabled', 'error');
+                return false;
+            });
+            
+            // Disable drag and drop
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+            });
+            
+            // Clear console periodically
+            if (typeof console !== 'undefined') {
+                setInterval(() => {
+                    if (console.clear) {
+                        console.clear();
+                    }
+                }, 3000);
+            }
+            
+            // Detect mobile devtools
+            
+
+        // Performance optimization
+        (function() {
+            // Lazy load images
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            // Observe all images
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
+            
+            // Preconnect to external domains
+            const preconnectLinks = [
+                'https://image.tmdb.org',
+                'https://vidsrc.to',
+                'https://api.telegram.org'
+            ];
+            
+            preconnectLinks.forEach(url => {
+                const link = document.createElement('link');
+                link.rel = 'preconnect';
+                link.href = url;
+                document.head.appendChild(link);
+            });
+        })();
+
+        console.log('%c🚀 VStream Entertainment Hub', 'color: #e50914; font-size: 20px; font-weight: bold;');
+        console.log('%cDeveloped by @hellfirez3643', 'color: #8b008b; font-size: 14px;');
+        console.log('%cJoin our Telegram: @VengeanceSeekers', 'color: #ffffff; font-size: 12px;');
+    </script>
+</body>
+</html>       
             preconnectLinks.forEach(url => {
                 const link = document.createElement('link');
                 link.rel = 'preconnect';
